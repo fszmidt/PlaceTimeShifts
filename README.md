@@ -4,6 +4,8 @@ Code used for Speed-dependent place- and time-field shifts do not require explic
 
 -Fig1.py generates figure 1.
 
+-compute_field_centres.m and Fig2.m generate figure 2.
+
 -gen_train_set.py can be used to generate a training dataset for both space and space+time RNNs.
 
 -model.py contains the RNN class
