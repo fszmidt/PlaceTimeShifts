@@ -103,7 +103,6 @@ cells = [3,14,19,32]
 
 ratemaps = speed_pos_ratemaps(theta_CW_st[:,t0:],x_CW_st[:,cells,t0:])
 
-
 ratemaps_t = np.zeros((4,batch_size//n_trials, tsteps - t0))
 for n in range(4):
     #ax = axes.flat[n]
@@ -111,7 +110,7 @@ for n in range(4):
         hist1 = np.mean(x_CW_st[b*n_trials:(b+1)*n_trials,cells[n],t0:], axis = 0)
         ratemaps_t[n,b] = hist1
                 
-#%% FIG 8 a
+#%% FIG 7 e
 r_max = np.max(np.nan_to_num(ratemaps))
 t_max = np.max(ratemaps_t)
 

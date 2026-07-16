@@ -6,6 +6,7 @@ import torch
 import scipy.stats as sp
 from scipy.optimize import curve_fit
 model_names = os.listdir('Simulations')
+import matplotlib
 matplotlib.rcParams['pdf.fonttype'] = 42 
 print(model_names)
 #%%
@@ -37,11 +38,7 @@ x_std = firing.std(axis=0)
 
 
 max_times = np.argmax(x_mean, axis = 1)
-plt.hist(max_times, bins = 20)
-plt.xlabel('Time of max firing')
-
-plt.ylabel('Count')
-#%% Fig 7.b
+#%% Fig 7.c
 sorted_indices = np.argsort(max_times)
 sorted_data = x_mean[sorted_indices]/(x_mean[sorted_indices].max(axis=1, keepdims=True))
 
@@ -74,19 +71,9 @@ for i in range(4):
     ax.set_yticks([])
 
 fig.colorbar(im, ax = axes)
-#%%
-width_t = np.zeros(hidden_size)
 
-for i in range(hidden_size):    
-   width_t[i] = (x_mean[i] > (x_mean[i].max()/2)).sum()
 
-#%% Fig 7.i
-
-plt.scatter(max_times, width_t)
-plt.xlabel('Time of max firing')
-plt.ylabel('Field width')
-
-#%% Sorted W (Fig 7.e)
+#%% Sorted W (Fig 8.a)
 order_t = np.argsort(max_times)
 
 w_sorted_time = W[order_t]
@@ -97,11 +84,7 @@ plt.imshow(w_sorted_time)
 plt.xticks([])
 plt.yticks([])
 plt.colorbar()
-#%% Fig 8.c
-
-plt.scatter(np.arange(hidden_size),I[order_t,-1])
-
-#%% Fig 7.f
+#%% Fig 8.b
 
 coms = Functions.periodic_center_of_mass(w_sorted_time.T)
 shift = coms - np.arange(hidden_size)
@@ -113,9 +96,28 @@ plt.xlabel('Recurrent shift')
 plt.ylabel('Cell count')
 print(np.median(shift))
 print(sp.wilcoxon(shift))
-#%% Fig 7.h
+#%% Fig 8.c
+
+plt.scatter(np.arange(hidden_size),I[order_t,-1])
+
+#%% Fig 7.d
 plt.scatter(max_times, O[2])
 plt.xlabel('Time of max firing')
 plt.ylabel('Output weight')
 
 print(sp.spearmanr(max_times,O[2]))
+#%% Fig 8.e
+width_t = np.zeros(hidden_size)
+
+for i in range(hidden_size):    
+   width_t[i] = (x_mean[i] > (x_mean[i].max()/2)).sum()
+
+
+plt.scatter(max_times, width_t)
+plt.xlabel('Time of max firing')
+plt.ylabel('Field width')
+#%% Fig 8.f
+plt.hist(max_times, bins = 20)
+plt.xlabel('Time of max firing')
+
+plt.ylabel('Count')
