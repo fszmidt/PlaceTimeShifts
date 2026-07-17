@@ -1,5 +1,5 @@
 # PlaceTimeShifts
-Code used for Speed-dependent place- and time-field shifts do not require explicit temporal coding
+Code used for "Speed-dependent place- and time-field shifts do not require explicit temporal coding"
 
 
 -Fig1.py generates figure 1.
